@@ -1,0 +1,28 @@
+name: Build and test
+
+on:
+  push:
+    paths-ignore:
+    - "README.md"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        matrix:
+        node-version: [14.x]
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Build docker images
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+      run: npm run docker:build
+    - name: Run docker
+      run: npm run docker:run
+    - name: Test
+      run: npm run docker:test
+    - name: Stop docker
+      run: npm run docker:rm

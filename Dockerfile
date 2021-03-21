@@ -1,4 +1,5 @@
-FROM ubuntu:20.04
+ARG VERSION=20.04
+FROM ubuntu:$VERSION
 
 WORKDIR /usr/src/app
 
