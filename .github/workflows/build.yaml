@@ -19,7 +19,9 @@ jobs:
     - name: Build docker images
       run: npm run docker:build
     - name: Run docker and test
-      run: npm run docker:run
+      run: |
+        npm run docker:run
+        docker exec -i pptvnc ls -la
     - name: Test
       run: npm run docker:test
     - name: Stop docker
