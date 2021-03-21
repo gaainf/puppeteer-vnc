@@ -1,0 +1,18 @@
+{
+  "name": "puppeteer-vnc",
+  "version": "2.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "docker:build": "docker build -t pptvnc .",
+    "docker:run": "docker run -dit --cap-add=SYS_ADMIN -v `pwd`:/usr/src/app -v node_modules:/usr/src/app/node_modules/ -p 5900:5900 -w /usr/src/app --name pptvnc pptvnc",
+    "docker:exec": "docker exec -it pptvnc zsh",
+    "docker:rm": "docker rm -f pptvnc",
+    "test": "node test.js"
+  },
+  "author": "gaainf",
+  "license": "MIT",
+  "dependencies": {
+    "puppeteer": "^8.0.0"
+  }
+}
