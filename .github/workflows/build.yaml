@@ -15,10 +15,9 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-    - name: Build docker images
+    - name: Use nodejs:${{ matrix.node-version }}
       uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
+    - name: Build docker images
       run: npm run docker:build
     - name: Run docker
       run: npm run docker:run
