@@ -19,7 +19,8 @@ jobs:
     - name: Build docker images
       run: npm run docker:build
     - name: Run docker and test
-      run: |
-        npm run docker:run
-        npm run docker:test
-        npm run docker:rm
+      run: npm run docker:run
+    - name: Test
+      run: npm run docker:test
+    - name: Stop docker
+      run: npm run docker:rm
