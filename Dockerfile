@@ -19,10 +19,6 @@ RUN curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 RUN apt install -y nodejs
 RUN npm install -g npm@7
 
-# Install node modules
-COPY package*.json ./
-RUN npm install
-
 # Configure screen resolution
 ENV DISPLAY=:1
 ENV SCREEN=1280x1024x24
@@ -31,6 +27,12 @@ ENV SCREEN=1280x1024x24
 RUN echo "Xvfb $DISPLAY -screen 0 $SCREEN &" >> /start.sh
 RUN echo "x11vnc -display $DISPLAY" >> /start.sh
 RUN chmod 755 /start.sh
+
+# Install node modules
+COPY package*.json ./
+RUN chmod 777 package*.json
+RUN npm install
+RUN chmod -R 777 node_modules
 
 # Configure kernel to avoid no-sanbox error
 RUN echo 'kernel.unprivileged_userns_clone=1' > /etc/sysctl.d/userns.conf
