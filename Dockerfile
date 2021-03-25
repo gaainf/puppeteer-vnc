@@ -49,6 +49,7 @@ RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/inst
 # Install node modules
 COPY package*.json ./
 RUN sudo chown appuser:appuser ./
-RUN sudo npm install
+# RUN sudo npm install
+RUN sudo npm install -g puppeteer --unsafe-perm=true
 
 CMD ["bash", "-c", "/start.sh"]
