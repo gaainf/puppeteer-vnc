@@ -28,12 +28,6 @@ RUN echo "Xvfb $DISPLAY -screen 0 $SCREEN &" >> /start.sh
 RUN echo "x11vnc -display $DISPLAY" >> /start.sh
 RUN chmod 755 /start.sh
 
-# Install node modules
-COPY package*.json ./
-RUN chmod 777 package*.json
-RUN npm install
-RUN chmod -R 777 node_modules
-
 # Configure kernel to avoid no-sanbox error
 RUN echo 'kernel.unprivileged_userns_clone=1' > /etc/sysctl.d/userns.conf
 
@@ -51,5 +45,11 @@ USER ${uid}:${gid}
 # Setup zsh for active user
 ENV ZSH=/home/appuser/.oh-my-zsh
 RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# Install node modules
+COPY package*.json ./
+RUN sudo chown appuser:appuser ./
+RUN sudo npm install
+# RUN chmod -R 777 node_modules
 
 CMD ["bash", "-c", "/start.sh"]
