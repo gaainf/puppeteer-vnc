@@ -22,6 +22,7 @@ jobs:
       run: |
         npm run docker:run
         docker exec -i pptvnc ls -la
+        docker exec -i pptvnc sudo npm install -g puppeteer --unsafe-perm=true
     - name: Test
       run: npm run docker:test
     - name: Stop docker

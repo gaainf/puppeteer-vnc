@@ -50,6 +50,5 @@ RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/inst
 COPY package*.json ./
 RUN sudo chown appuser:appuser ./
 RUN sudo npm install
-# RUN chmod -R 777 node_modules
 
 CMD ["bash", "-c", "/start.sh"]
