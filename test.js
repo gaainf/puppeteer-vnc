@@ -21,6 +21,10 @@ const puppeteer = require('puppeteer');
     // });
     
     await page.goto('https://ya.ru/');
-    await page.screenshot({ path: 'screen.png' })
+    try {
+        await page.screenshot({ path: 'screen.png' })
+    } catch(e) {
+        console.log(e);
+    }
     await browser.close();
 })();
