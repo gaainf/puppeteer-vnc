@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "docker:build": "docker build -t pptvnc .",
-    "docker:run": "docker run -dit --cap-add=SYS_ADMIN -v `pwd`:/usr/src/app -v node_modules:/usr/src/app/node_modules/ -p 5900:5900 -w /usr/src/app --name pptvnc pptvnc",
+    "docker:run": "docker run -dit --cap-add=SYS_ADMIN -v `pwd`:/usr/src/app -v empty_tmp:/usr/src/app/node_modules/ -p 5900:5900 -w /usr/src/app --name pptvnc pptvnc",
     "docker:exec": "docker exec -it pptvnc zsh",
+    "docker:test": "docker exec -i pptvnc npm run test",
     "docker:rm": "docker rm -f pptvnc",
     "test": "node test.js"
   },

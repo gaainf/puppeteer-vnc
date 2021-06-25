@@ -1,4 +1,5 @@
-FROM ubuntu:20.04
+ARG VERSION=20.04
+FROM ubuntu:$VERSION
 
 WORKDIR /usr/src/app
 
@@ -17,10 +18,6 @@ RUN apt install -y ca-certificates fonts-liberation gconf-service libappindicato
 RUN curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 RUN apt install -y nodejs
 RUN npm install -g npm@7
-
-# Install node modules
-COPY package*.json ./
-RUN npm install
 
 # Configure screen resolution
 ENV DISPLAY=:1
@@ -48,5 +45,14 @@ USER ${uid}:${gid}
 # Setup zsh for active user
 ENV ZSH=/home/appuser/.oh-my-zsh
 RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# Install node modules
+COPY package*.json ./
+RUN sudo chown appuser:appuser ./
+RUN mkdir -p node_modules
+RUN sudo chown -R appuser:appuser /home/appuser
+RUN sudo chown -R appuser:appuser ./
+RUN sudo npm install
+RUN sudo chown -R appuser:appuser ../
 
 CMD ["bash", "-c", "/start.sh"]
